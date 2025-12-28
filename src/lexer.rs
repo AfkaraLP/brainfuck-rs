@@ -25,22 +25,20 @@ impl<'src> Lexer<'src> {
 
     pub fn lex(&mut self) -> Result<Vec<Token>, LexError> {
         let mut tokens: Vec<Token> = Vec::with_capacity(self.0.len());
-        while !self.0.is_empty() {
-            if let Some(c) = self.peek() {
-                match c {
-                    '+' => tokens.push(Token::Incr),
-                    '-' => tokens.push(Token::Decr),
-                    '[' => tokens.push(Token::LeftBrack),
-                    ']' => tokens.push(Token::RightBrack),
-                    ',' => tokens.push(Token::Replace),
-                    '.' => tokens.push(Token::Output),
-                    '<' => tokens.push(Token::MovLeft),
-                    '>' => tokens.push(Token::MovRight),
-                    _ if c.is_whitespace() => {}
-                    v => return Err(LexError::UnexpectedChar(v)), // maybe switch it to just ignore stuff
-                }
-                self.advance();
+        while let Some(c) = self.peek() {
+            match c {
+                '+' => tokens.push(Token::Incr),
+                '-' => tokens.push(Token::Decr),
+                '[' => tokens.push(Token::LeftBrack),
+                ']' => tokens.push(Token::RightBrack),
+                ',' => tokens.push(Token::Replace),
+                '.' => tokens.push(Token::Output),
+                '<' => tokens.push(Token::MovLeft),
+                '>' => tokens.push(Token::MovRight),
+                _ if c.is_whitespace() => {}
+                v => return Err(LexError::UnexpectedChar(v)), // maybe switch it to just ignore stuff
             }
+            self.advance();
         }
         Ok(tokens)
     }
