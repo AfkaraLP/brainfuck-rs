@@ -19,3 +19,9 @@ cargo run -- --path path/to/file.bf
 # Run raw Brainfuck code
 cargo run -- --code "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
 ```
+
+## Roadmap
+
+[x] Add Basic Interpreter
+[ ] Add replace feature
+[ ] Write Compiler
