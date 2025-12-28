@@ -46,7 +46,9 @@ pub fn execute(expr: &Vec<Expr>, pointer: &mut usize, stack: &mut [u8; STACK_SIZ
                 let ascii_char = stack[*pointer] as char;
                 print!("{ascii_char}",);
             }
-            Expr::Replace => todo!(),
+            Expr::Replace => todo!(
+                "Did not yet add replace function as I was too lazy to read up on what exactly it's supposed to do"
+            ),
             Expr::Loop(exprs) => {
                 while stack[*pointer] != 0 {
                     execute(exprs, pointer, stack);
