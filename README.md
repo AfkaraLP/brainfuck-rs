@@ -22,6 +22,6 @@ cargo run -- --code "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.++
 
 ## Roadmap
 
-[x] Add Basic Interpreter
-[ ] Add replace feature
-[ ] Write Compiler
+- [x] Add Basic Interpreter
+- [ ] Add replace feature
+- [ ] Write Compiler
