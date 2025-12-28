@@ -27,9 +27,7 @@ pub fn execute<const N: usize>(exprs: &Vec<Expr>, stack: &mut Stack<N>) {
             Expr::Incr => stack.incr(),
             Expr::Decr => stack.decr(),
             Expr::Output => stack.print(),
-            Expr::Replace => todo!(
-                "Did not yet add replace function as I was too lazy to read up on what exactly it's supposed to do"
-            ),
+            Expr::Replace => stack.get_user_input(),
             Expr::Loop(exprs) => {
                 while stack.current_value() != 0 {
                     execute(exprs, stack);

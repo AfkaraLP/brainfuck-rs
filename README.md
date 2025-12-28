@@ -14,7 +14,7 @@ A simple Brainfuck interpreter written in Rust. It lexes, parses, and interprets
 
 ```bash
 # Run a Brainfuck file
-cargo run -- --path ./hello_world.bf
+cargo run -- --path ./examples/tictactoe.bf
 
 # Run raw Brainfuck code
 cargo run -- --code "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
@@ -22,6 +22,6 @@ cargo run -- --code "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.++
 
 ## Roadmap
 
-- [x] Add Basic Interpreter
-- [ ] Add replace feature
+- [x] Add basic interpreter
+- [x] Add replace feature
 - [ ] Write Compiler

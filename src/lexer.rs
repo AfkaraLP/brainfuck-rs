@@ -13,17 +13,12 @@ pub enum Token {
     Replace,
 }
 
-#[derive(Debug, Clone, Copy, Eq, PartialEq)]
-pub enum LexError {
-    UnexpectedChar(char),
-}
-
 impl<'src> Lexer<'src> {
     pub const fn new(input: &'src str) -> Self {
         Self(input)
     }
 
-    pub fn lex(&mut self) -> Result<Vec<Token>, LexError> {
+    pub fn lex(&mut self) -> Vec<Token> {
         let mut tokens: Vec<Token> = Vec::with_capacity(self.0.len());
         while let Some(c) = self.peek() {
             match c {
@@ -36,11 +31,11 @@ impl<'src> Lexer<'src> {
                 '<' => tokens.push(Token::MovLeft),
                 '>' => tokens.push(Token::MovRight),
                 _ if c.is_whitespace() => {}
-                v => return Err(LexError::UnexpectedChar(v)), // maybe switch it to just ignore stuff
+                _v => {}
             }
             self.advance();
         }
-        Ok(tokens)
+        tokens
     }
 
     fn advance(&mut self) {

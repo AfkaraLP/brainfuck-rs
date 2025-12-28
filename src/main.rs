@@ -27,9 +27,7 @@ fn main() {
 }
 
 pub fn run_brainfuck(code: &str) {
-    let Ok(tokens) = Lexer::new(code).lex() else {
-        return println!("Failed to lex file");
-    };
+    let tokens = Lexer::new(code).lex();
     let parsed = Parser::new(tokens).parse();
     Interpreter::<STACK_SIZE>::new(parsed).interpret();
 }
