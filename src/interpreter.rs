@@ -1,6 +1,6 @@
 use crate::parser::Expr;
 
-pub const STACK_SIZE: usize = 1024 * 1024; // give the user 1MB of stack
+pub const STACK_SIZE: usize = 6767;
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub struct Interpreter {
@@ -23,8 +23,8 @@ impl Interpreter {
     }
 }
 
-pub fn execute(expr: &Vec<Expr>, pointer: &mut usize, stack: &mut [u8; STACK_SIZE]) {
-    for expr in expr.iter() {
+pub fn execute(exprs: &Vec<Expr>, pointer: &mut usize, stack: &mut [u8; STACK_SIZE]) {
+    for expr in exprs {
         match expr {
             Expr::MovLeft => {
                 if *pointer == 0 {

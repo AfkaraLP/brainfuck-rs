@@ -25,7 +25,7 @@ fn main() {
     let args = Args::parse();
     match (args.code, args.path) {
         (None, None) => {
-            println!("please provide a path or some code to execute, run with -h for more options")
+            println!("please provide a path or some code to execute, run with -h for more options");
         }
         (None, Some(path)) => run_from_file(&path),
         (Some(code), None) => run_brainfuck(&code),

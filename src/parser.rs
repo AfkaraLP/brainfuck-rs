@@ -20,7 +20,7 @@ impl Parser {
 
     pub fn parse(&mut self) -> Vec<Expr> {
         let mut expr = Vec::new();
-        while let Some(token) = self.0.first().cloned() {
+        while let Some(token) = self.0.first().copied() {
             self.0.remove(0);
             match token {
                 Token::MovLeft => expr.push(Expr::MovLeft),
