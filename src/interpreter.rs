@@ -1,57 +1,38 @@
-use crate::parser::Expr;
-
-pub const STACK_SIZE: usize = 6767;
+use crate::{parser::Expr, stack::Stack};
 
 #[derive(Debug, Clone, Eq, PartialEq)]
-pub struct Interpreter {
+pub struct Interpreter<const N: usize> {
     expr: Vec<Expr>,
-    stack: [u8; STACK_SIZE],
-    pointer: usize,
+    stack: Stack<N>,
 }
 
-impl Interpreter {
+impl<const N: usize> Interpreter<N> {
     pub const fn new(expr: Vec<Expr>) -> Self {
         Self {
             expr,
-            stack: [0u8; STACK_SIZE],
-            pointer: 0usize,
+            stack: Stack::new(),
         }
     }
 
     pub fn interpret(&mut self) {
-        execute(&self.expr, &mut self.pointer, &mut self.stack);
+        execute(&self.expr, &mut self.stack);
     }
 }
 
-pub fn execute(exprs: &Vec<Expr>, pointer: &mut usize, stack: &mut [u8; STACK_SIZE]) {
+pub fn execute<const N: usize>(exprs: &Vec<Expr>, stack: &mut Stack<N>) {
     for expr in exprs {
         match expr {
-            Expr::MovLeft => {
-                if *pointer == 0 {
-                    *pointer = STACK_SIZE - 1;
-                } else {
-                    *pointer -= 1;
-                }
-            }
-            Expr::MovRight => {
-                if *pointer == STACK_SIZE - 1 {
-                    *pointer = 0;
-                } else {
-                    *pointer += 1;
-                }
-            }
-            Expr::Incr => stack[*pointer] = stack[*pointer].wrapping_add(1),
-            Expr::Decr => stack[*pointer] = stack[*pointer].wrapping_sub(1),
-            Expr::Output => {
-                let ascii_char = stack[*pointer] as char;
-                print!("{ascii_char}",);
-            }
+            Expr::MovLeft => stack.shift_left(),
+            Expr::MovRight => stack.shift_right(),
+            Expr::Incr => stack.incr(),
+            Expr::Decr => stack.decr(),
+            Expr::Output => stack.print(),
             Expr::Replace => todo!(
                 "Did not yet add replace function as I was too lazy to read up on what exactly it's supposed to do"
             ),
             Expr::Loop(exprs) => {
-                while stack[*pointer] != 0 {
-                    execute(exprs, pointer, stack);
+                while stack.current_value() != 0 {
+                    execute(exprs, stack);
                 }
             }
         }

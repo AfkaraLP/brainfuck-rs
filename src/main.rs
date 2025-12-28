@@ -1,25 +1,14 @@
+use crate::{args::Args, interpreter::Interpreter, lexer::Lexer, parser::Parser};
+use clap::Parser as ArgsParser;
 use std::fs::read_to_string;
 
-use clap::Parser as ArgsParser;
+pub const STACK_SIZE: usize = 6767;
 
-use crate::{interpreter::Interpreter, lexer::Lexer, parser::Parser};
-
-/// Brainfuck interpreter
-#[derive(ArgsParser, Debug, Clone)]
-#[command(version, about)]
-pub struct Args {
-    /// Path to brainfuck file to execute
-    #[arg(short, long)]
-    path: Option<String>,
-
-    /// Raw brainfuck code
-    #[arg(short, long)]
-    code: Option<String>,
-}
-
+mod args;
 mod interpreter;
 mod lexer;
 mod parser;
+mod stack;
 
 fn main() {
     let args = Args::parse();
@@ -42,7 +31,7 @@ pub fn run_brainfuck(code: &str) {
         return println!("Failed to lex file");
     };
     let parsed = Parser::new(tokens).parse();
-    Interpreter::new(parsed).interpret();
+    Interpreter::<STACK_SIZE>::new(parsed).interpret();
 }
 
 pub fn run_from_file(path: &str) {
