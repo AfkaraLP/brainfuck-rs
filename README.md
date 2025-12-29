@@ -24,4 +24,5 @@ cargo run -- --code "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.++
 
 - [x] Add basic interpreter
 - [x] Add replace feature
+- [ ] fix input handling
 - [ ] Write Compiler
